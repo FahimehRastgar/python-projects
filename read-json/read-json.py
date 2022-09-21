@@ -1,32 +1,42 @@
+from fileinput import filename
 import json
 
 
-x = int(input('''
-Select file:
-1 - Mohammad
-2 - Fahim
+def calculateAge(birthdate):
 
-What is your file id? '''))
+    dateSplit = birthdate.split('-')
+    birthYear = int(dateSplit[0])
+    age = 2022 - birthYear
 
-file_names = {
-    1: 'mohammad',
-    2: 'fahim'
-}
-if x not in file_names :
-    print('g f y')
-else:
-    file_name = (file_names[x] + '.json')
-
-    with open(file_name, 'r') as file2 :
-        data2 = json.load(file2) 
+    return age
 
 
+def init():
 
-    splited_birth= data2['birthdate'].split('-')
-    year= int(splited_birth[0])
-    age_cal= 2022 - year
+    personId = int(input('''
+    Select file:
+    1 - Mohammad
+    2 - Fahim
 
-    print(f'''Full name: {data2['name']} {data2['last_name']}''')
-    print(f'''Age: {age_cal} ''')
-    print(f'''Postcode: {data2['postcode']} ''')
+    What is your file id? '''))
 
+    personList = {
+        1: 'mohammad',
+        2: 'fahim'
+    }
+    if personId not in personList :
+        print('g f y')
+    else:
+        fileName = (personList[personId] + '.json')
+
+        with open(fileName, 'r') as fileData :
+            person = json.load(fileData) 
+
+        age = calculateAge(person['birthdate'])
+
+        print(f'''Full name: {person['name']} {person['last_name']}''')
+        print(f'''Age: {age} ''')
+        print(f'''Postcode: {person['postcode']} ''')
+
+
+init()
