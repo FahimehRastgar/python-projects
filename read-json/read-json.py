@@ -1,7 +1,7 @@
 
 import urllib.request
 import json
-
+import os
 
 def calculateAge(birthdate):
 
@@ -21,23 +21,28 @@ def getUpcomingPost(postCode):
 
 def init():
 
-    personId = int(input('''
+    personList = []
+
+    for file in os.listdir("./"):
+        if file.endswith(".json"):
+            name = file.split('.')
+            personList.append(name[0])
+
+
+    personName = ""
+    for id, name in enumerate(personList):
+         personName = personName + (str(id + 1) + " - " + name) + "\n"
+
+    personId = int(input(f'''
 Select file:
 
-    1 - Mohammad
-    2 - Fahim
-    3 - Ali
-    
+{personName}
 
  What is your file id? '''))
 
-    personList = {
-        1: 'mohammad',
-        2: 'fahim', 
-        3: 'ali', 
-    }
+    personId -= 1
 
-    if personId not in personList :
+    if personId >= len(personList) :
         print('g f y')
     else:
         fileName = (personList[personId] + '.json')
